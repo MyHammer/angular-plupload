@@ -66,6 +66,10 @@
                 });
               });
             }
+            
+            scope.$on("$destroy", function(){
+              uploader.destroy();
+            });
 
             uploader.init();
           }
