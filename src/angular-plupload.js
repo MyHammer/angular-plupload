@@ -71,6 +71,24 @@
               uploader.destroy();
             });
 
+            function isOnScreen() {
+              var win = angular.element(window);
+              var el = angular.element(element);
+              var viewport = {
+                top: win.scrollTop(),
+                left: win.scrollLeft()
+              };
+              viewport.right = viewport.left + win.width();
+              viewport.bottom = viewport.top + win.height();
+              var bounds = el.offset();
+              bounds.right = bounds.left + el.outerWidth();
+              bounds.bottom = bounds.top + el.outerHeight();
+              return (viewport.right < bounds.left || viewport.left > bounds.right || viewport.bottom < bounds.top || viewport.top > bounds.bottom);
+            }
+            scope.$watch(isOnScreen, function () {
+              uploader.refresh();
+            });
+
             uploader.init();
           }
         };
